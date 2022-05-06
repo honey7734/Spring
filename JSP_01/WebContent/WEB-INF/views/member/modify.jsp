@@ -8,9 +8,9 @@
 </head>
 <body>
 	
-	<form action="regist" method="post" >
-		아이디 : <input type="text" name="id" /><br/>
-		패스워드 : <input type="password" name="pwd" /><br/>
+	<form action="modify" method="post" >
+		아이디 : <input type="text" name="id" value="${member.id }"/><br/>
+		패스워드 : <input type="password" name="pwd" value="${member.pwd }"/><br/>
 		<input type="submit" value="가입" />
 	</form>
 </body>

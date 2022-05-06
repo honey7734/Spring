@@ -17,7 +17,7 @@
 		<hr style="width:70%;margin:0 auto;"/>
 		<br/>
 		<div style="width:70%;margin:0 auto;position:relative;overflow:hidden;">
-			<button onclick="location.href='regist'" type="button" style="display:block;float:right;">회원가입</button>
+			<button onclick="location.href='regist';" type="button" style="display:block;float:right;">회원가입</button>
 		</div>
 		<br/>
 		<table border="1" style="width:70%;margin:0 auto;">
@@ -34,7 +34,7 @@
 				pageContext.setAttribute("member",member);
 				pageContext.setAttribute("num",count++);
 			%>
-			<tr style="text-align:center">
+			<tr style="text-align:center;cursor:pointer;" onclick="location.href='detail?id=${member.id}';";>
 				<td>${num }</td>
 				<td>${member.id }</td>
 				<td>${member.pwd }</td>
@@ -44,6 +44,7 @@
 			%>
 			<tr >
 				<td colspan="3">해당내용이 없습니다.</td>
+				
 			</tr>
 			<%		
 					
