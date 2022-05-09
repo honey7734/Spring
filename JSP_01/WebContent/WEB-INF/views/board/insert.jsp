@@ -23,6 +23,7 @@ body {
 
 .container{
 	margin-top: 40px;
+	width: 700px;
 }
 h2{
 	font-size: 50px;
@@ -36,9 +37,7 @@ h2{
 textarea {
 	resize: none;
 }
-.container{
-	width: 700px;
-}
+
 .form-control{
 	font-size: 25px;
 }
