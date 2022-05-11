@@ -34,7 +34,7 @@
 				pageContext.setAttribute("member",member);
 				pageContext.setAttribute("num",count++);
 			%>
-			<tr style="text-align:center;cursor:pointer;" onclick="location.href='detail?id=${member.id}';";>
+			<tr style="text-align:center;cursor:pointer;" onclick="location.href='detail?id=${member.id}';">
 				<td>${num }</td>
 				<td>${member.id }</td>
 				<td>${member.pwd }</td>
