@@ -1,11 +1,11 @@
 /*	
  	작성자 : 예현의
-	작성일 : 2022-05-11
+	작성일 : 2022-05-12
 	
 	MemberDAO를 만들기 위한 interface
 	
 	1. member의 전체리스트를 가져오는 메서드 구현을위한 interface
-	
+	2. member의 전체 리스트(일반) 갯수를 가져오는 메서드 구현을 위한 interface
 */
 package com.jsp.dao;
 
@@ -23,4 +23,7 @@ public interface MemberDAO {
 	//1-1. overloading : Criteria객체를 통해 일정 멤버리스트를 가져오는 메서드 구현을 위한 interface
 	List<MemberVO> selectMemberList(SqlSession session, Criteria cri) throws Exception;
 
+	
+	//2. member의 전체 리스트(일반) 갯수를 가져오는 메서드 구현을 위한 interface
+	int selectMemberListCount(SqlSession session) throws Exception;
 }

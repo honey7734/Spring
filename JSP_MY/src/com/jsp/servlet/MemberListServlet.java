@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsp.dataSource.DataSource;
+import com.jsp.datasource.DataSource;
 import com.jsp.vo.Member;
 
-@WebServlet("/member/list")
+//@WebServlet("/member/list") 중복 url이기때문에 취소해놓기
+@WebServlet("/member/listServlet")
 public class MemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

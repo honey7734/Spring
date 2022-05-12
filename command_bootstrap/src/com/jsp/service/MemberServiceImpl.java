@@ -5,17 +5,21 @@
  * 	MemberService interface를 구현하는 MemberServiceImpl객체
  * 	
  * 	1. 모든 멤버 객체를 리스트로 받아와 반환해주는 메서드 구현
+ * 	2. 페이징을 위한 정보(MemberList, PageMaker) 값을 리턴해주는 getMemberListForPage
  * 
  */
 
 package com.jsp.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.jsp.command.Criteria;
+import com.jsp.command.PageMaker;
 import com.jsp.dao.MemberDAO;
 import com.jsp.dao.MemberDAOImpl;
 import com.jsp.datasource.OracleMybatisSqlSessionFactory;
@@ -78,6 +82,38 @@ public class MemberServiceImpl implements MemberService{
 				
 		//에러가 발생시 null이 반환된다
 		return memberList;
+	}
+
+	
+	//2. 페이징을 위한 정보(MemberList, PageMaker) 값을 리턴해주는 getMemberListForPage
+	@Override
+	public Map<String, Object> getMemberListForPage(Criteria cri) throws Exception {
+		SqlSession session = sqlSessionFactory.openSession(false);
+		Map<String, Object> dataMap = null;
+		
+		try {
+			//	처리..........
+			//	1) member 리스트를 가져온다
+			List<MemberVO> memberList = memberDAO.selectMemberList(session, cri);
+			
+			//	2) 페이지 메이커
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(memberDAO.selectMemberListCount(session));
+			
+			//	3) memberList와 PageMaker를 Map에 담는다
+			dataMap = new HashMap<String, Object>();
+			dataMap.put("memberList", memberList);
+			dataMap.put("pageMaker", pageMaker);
+			
+			session.commit();
+		} catch (Exception e) {
+			session.rollback();
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return dataMap;
 	}
 	
 	

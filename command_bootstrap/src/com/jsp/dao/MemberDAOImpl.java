@@ -1,11 +1,12 @@
 /*	
  	작성자 : 예현의
-	작성일 : 2022-05-11
+	작성일 : 2022-05-12
 	
 	 interface MemberDAO를  구현한  MemberDAO 클래스
 	 (DAO : Database Access Object)
 	
 	1. member의 전체리스트를 가져오는 메서드
+	2. member의 전체 리스트(일반) 갯수를 가져오는 메서드
 	
 */
 package com.jsp.dao;
@@ -40,6 +41,13 @@ public class MemberDAOImpl implements MemberDAO{
 		List<MemberVO> memberList = session.selectList("Member-Mapper.selectMemberList", null, rowBounds);
 		
 		return memberList;
+	}
+
+	//2. member의 전체 리스트(일반) 갯수를 가져오는 메서드
+	@Override
+	public int selectMemberListCount(SqlSession session) throws Exception {
+		int totalCount = session.selectOne("Member-Mapper.selectMemberListCount");
+		return totalCount;
 	}
 
 }

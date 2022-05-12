@@ -11,6 +11,7 @@ package com.jsp.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jsp.command.Criteria;
+import com.jsp.command.PageMaker;
 import com.jsp.dto.MemberVO;
 import com.jsp.service.MemberService;
 import com.jsp.service.MemberServiceImpl;
@@ -66,8 +68,10 @@ public class MemberListServlet extends HttpServlet {
 		
 		
 		try {
-			List<MemberVO> memberList = memberService.getMemberList(cri);
-			request.setAttribute("memberList", memberList);
+//			List<MemberVO> memberList = memberService.getMemberList(cri);
+			Map<String, Object> dataMap = memberService.getMemberListForPage(cri);
+			
+			request.setAttribute("dataMap", dataMap);
 		} catch (Exception e) {
 			url = "/WEB-INF/views/error/500.jsp";
 		}

@@ -10,4 +10,11 @@
 		member
 		order by regDate desc
 	</select>
+	<select id="selectMemberListCount" resultType="int">
+		select
+		count(*)
+		from
+		member
+		order by regDate desc
+	</select>
 </mapper>

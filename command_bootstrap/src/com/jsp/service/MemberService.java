@@ -5,12 +5,13 @@
  * 	Member에 대한 기능을 구현하는 MemberService 객체를 위한 interface
  * 
  * 	1. MemberList을 가져오는 getMemberList 구현을 위한 interface
- * 
+ * 	2. 페이징을 위한 정보(MemberList, PageMaker) 값을 리턴해주는 getMemberListForPage 구현을 위한 interface
  */
 
 package com.jsp.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.jsp.command.Criteria;
 import com.jsp.dto.MemberVO;
@@ -20,4 +21,8 @@ public interface MemberService {
 	public List<MemberVO> getMemberList() throws Exception;
 	//1-1. overloading : Criteria객체를 통해 일정 멤버리스트를 가져오는 기능 구현을 위한 interface
 	public List<MemberVO> getMemberList(Criteria cri) throws Exception;
+	
+	//2. 페이징을 위한 정보(MemberList, PageMaker) 값을 리턴해주는 getMemberListForPage 구현을 위한 interface
+	public Map<String, Object> getMemberListForPage(Criteria cri) throws Exception;
+		
 }

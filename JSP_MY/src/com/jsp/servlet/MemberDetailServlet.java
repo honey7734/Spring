@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsp.dataSource.DataSource;
+import com.jsp.datasource.DataSource;
 import com.jsp.vo.Member;
 
 /**

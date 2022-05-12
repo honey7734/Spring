@@ -1,4 +1,4 @@
-package com.jsp.dataSource;
+package com.jsp.datasource;
 
 import java.util.Date;
 import java.util.HashMap;
