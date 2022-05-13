@@ -52,6 +52,8 @@ public class MemberServiceImpl implements MemberService{
 			e.printStackTrace();
 			//Exception을 전달
 			throw e;
+		}finally {
+			if(session!=null) session.close();
 		}
 		
 		//에러가 발생시 null이 반환된다
@@ -78,6 +80,8 @@ public class MemberServiceImpl implements MemberService{
 			e.printStackTrace();
 			//Exception을 전달
 			throw e;
+		}finally {
+			if(session!=null) session.close();
 		}
 				
 		//에러가 발생시 null이 반환된다
@@ -111,6 +115,8 @@ public class MemberServiceImpl implements MemberService{
 			session.rollback();
 			e.printStackTrace();
 			throw e;
+		}finally {
+			if(session!=null) session.close();
 		}
 		
 		return dataMap;
