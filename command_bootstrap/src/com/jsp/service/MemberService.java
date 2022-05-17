@@ -24,5 +24,21 @@ public interface MemberService {
 	
 	//2. 페이징을 위한 정보(MemberList, PageMaker) 값을 리턴해주는 getMemberListForPage 구현을 위한 interface
 	public Map<String, Object> getMemberListForPage(Criteria cri) throws Exception;
-		
+	
+	
+	//회원 상세
+	public MemberVO getMember(String id) throws Exception;
+	
+	//회원등록
+	public void regist(MemberVO member) throws Exception;
+	
+	//회원수정
+	public void modify(MemberVO member) throws Exception;
+	
+	//회원탈퇴
+	public void remove(String id) throws Exception; 
+	
+	//회원상태변경 : enabled 1 사용 / 0 사용안함
+	public void enabled(String id, int enabled) throws Exception;
+	
 }

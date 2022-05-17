@@ -1,17 +1,9 @@
-/*	
- 	작성자 : 예현의
-	작성일 : 2022-05-12
-	
-	 interface MemberDAO를  구현한  MemberDAO 클래스
-	 (DAO : Database Access Object)
-	
-	1. member의 전체리스트를 가져오는 메서드
-	2. member의 전체 리스트(일반) 갯수를 가져오는 메서드
-	
-*/
 package com.jsp.dao;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -21,33 +13,79 @@ import com.jsp.dto.MemberVO;
 
 public class MemberDAOImpl implements MemberDAO{
 
-	//1. member의 전체리스트를 가져오는 메서드
 	@Override
-	public List<MemberVO> selectMemberList(SqlSession session) {
-		List<MemberVO> memberList = session.selectList("Member-Mapper.selectMemberList");
+	public List<MemberVO> selectMemberList(SqlSession session) throws Exception {
+		List<MemberVO> memberList=null;
+		try {
+		  
+			memberList= session.selectList("Member-Mapper.selectMemberList");
+		}catch(Exception e) {
+			//에러처리
+			throw e;
+		}
+		return memberList;
+	}
+
+	@Override
+	public List<MemberVO> selectMemberList(SqlSession session, Criteria cri) throws Exception {
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset,limit);
+		
+		List<MemberVO> memberList 
+		= session.selectList("Member-Mapper.selectMemberList",null,rowBounds);
 		
 		return memberList;
 	}
 	
-	//1-1. Criteria객체를 통해 일정 멤버리스트를 가져오는 메서드
-	@Override
-	public List<MemberVO> selectMemberList(SqlSession session, Criteria cri) throws Exception {
-		// 가져오기 시작할 rowNum 값
-		int offset = cri.getStartRowNum();
-		// 가져올 데이터 갯수를 지정한 값
-		int limit = cri.getPerPageNum();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		List<MemberVO> memberList = session.selectList("Member-Mapper.selectMemberList", null, rowBounds);
-		
-		return memberList;
-	}
-
-	//2. member의 전체 리스트(일반) 갯수를 가져오는 메서드
+	
 	@Override
 	public int selectMemberListCount(SqlSession session) throws Exception {
-		int totalCount = session.selectOne("Member-Mapper.selectMemberListCount");
+		int totalCount 
+		= session.selectOne("Member-Mapper.selectMemberListCount");
+		
 		return totalCount;
 	}
 
+	@Override
+	public MemberVO selectMemberById(SqlSession session, String id) throws SQLException {
+		MemberVO member=session.selectOne("Member-Mapper.selectMemberById",id);			
+		return member;
+	}
+
+	@Override
+	public void insertMember(SqlSession session, MemberVO member) throws SQLException {
+		session.update("Member-Mapper.insertMember",member);
+		
+	}
+	
+	@Override
+	public void updateMember(SqlSession session, MemberVO member) throws SQLException {
+		session.update("Member-Mapper.updateMember",member);
+
+	}
+
+	@Override
+	public void deleteMember(SqlSession session, String id) throws SQLException {
+		session.update("Member-Mapper.deleteMember",id);		
+	}
+
+	@Override
+	public void enabledMember(SqlSession session, String id, int enabled) throws SQLException {
+		
+		Map<String, Object> dataMap = new HashMap<String,Object>();
+		
+		dataMap.put("id", id);
+		dataMap.put("enabled",enabled);
+		
+		session.update("Member-Mapper.enabledMember",dataMap);
+		
+	}
+
 }
+
+
+
+
+
+

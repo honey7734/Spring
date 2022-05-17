@@ -1,22 +1,16 @@
-<%@page import="com.jsp.dto.MemberVO"%>
 <%@page import="com.jsp.command.PageMaker"%>
 <%@page import="java.util.Map"%>
+<%@page import="com.jsp.dto.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- <%
-	Map<String,Object> dataMap 
-		= (Map<String,Object>)request.getAttribute("dataMap");
-	List<MemberVO> memberList 
-		= (List<MemberVO>)dataMap.get("memberList");
-	PageMaker pageMaker = (PageMaker)dataMap.get("pageMaker");
-	
-%> --%>
-<c:set var="dataMap" value="${dataMap }" />
-<c:set var="memberList" value="${dataMap.get('memberList') }"/>
-<c:set var="pageMaker" value="${dataMap.get('pageMaker')}"/>
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="memberList" value="${dataMap.memberList }" />
+
 
 <!DOCTYPE html>
 <!--
@@ -32,10 +26,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  
-  <link rel="stylesheet" href="<c:url value="/resources/bootstrap/plugins/fontawesome-free/css/all.min.css" />">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<c:url value="/resources/bootstrap/dist/css/adminlte.min.css" />">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -67,45 +60,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
    	<section class="content">
    		<div class="card">
    			<div class="card-header with-border">
-   				<button type="button" class="btn btn-primary" onclick="" >회원등록</button>
+   				<button type="button" class="btn btn-primary" onclick="OpenWindow('regist', '회원등록', 800, 800)" >회원등록</button>
    				<div id="keyword" class="card-tools" style="width:550px;">
    					 <div class="input-group row">
    					 	<!-- search bar -->
    					 	<!-- sort num -->
-   					 	<c:if test="${pageMaker.getCri().getPerPageNum() eq 10 }">
-   					 		<c:set var="s10" value="selected" />
-   					 	</c:if>
-   					 	<c:if test="${pageMaker.getCri().getPerPageNum() eq 2 }">
-   					 		<c:set var="s2" value="selected" />
-   					 	</c:if>
-   					 	<c:if test="${pageMaker.getCri().getPerPageNum() eq 3 }">
-   					 		<c:set var="s3" value="selected" />
-   					 	</c:if>
-   					 	<c:if test="${pageMaker.getCri().getPerPageNum() eq 5 }">
-   					 		<c:set var="s5" value="selected" />
-   					 	</c:if>
-   					 	
-   					 	
 					  	<select class="form-control col-md-3" name="perPageNum" 
 					  			id="perPageNum" onchange="list_go(1);">					  		  		
-					  		<option value="10" ${s10 }>정렬개수</option>
-					  		<option value="2"  ${s2 }>2개씩</option>
-					  		<option value="3"  ${s3 }>3개씩</option>
-					  		<option value="5"  ${s5 }>5개씩</option>
+					  		<option value="10" ${cri.perPageNum eq 10 ? 'selected' : '' } >정렬개수</option>
+					  		<option value="2" ${cri.perPageNum eq 2 ? 'selected' : '' }>2개씩</option>
+					  		<option value="3" ${cri.perPageNum eq 3 ? 'selected' : '' }>3개씩</option>
+					  		<option value="5" ${cri.perPageNum eq 5 ? 'selected' : '' }>5개씩</option>
 					  	</select>
 					  	
 					  	
 					  	<!-- search bar -->
 					 	<select class="form-control col-md-3" name="searchType" id="searchType">
-					 		<option value=""  ${param.searchType == '' ? "selected" : "" }>검색구분</option>
-							<option value="i" ${param.searchType == 'i' ? "selected" : "" }>아이디</option>
-							<option value="n" ${param.searchType == 'n' ? "selected" : "" }>이 름</option>
-							<option value="p" ${param.searchType == 'p' ? "selected" : "" }>전화번호</option>
-							<option value="e" ${param.searchType == 'e' ? "selected" : "" }>이메일</option>				 									
+					 		<option value=""  >검색구분</option>
+							<option value="i" ${param.searchType=='i' ? "selected":"" } >아이디</option>
+							<option value="n" ${param.searchType=='n' ? "selected":"" }>이 름</option>
+							<option value="p" ${param.searchType=='p' ? "selected":"" }>전화번호</option>
+							<option value="e" ${param.searchType=='e' ? "selected":"" }>이메일</option>				 									
 						</select>
 						<!-- keyword -->
    					 	<input  class="form-control" type="text" name="keyword" 
-										placeholder="검색어를 입력하세요." value="${param.keyword }"/>
+										placeholder="검색어를 입력하세요." value="${param.keyword}"/>
 						<span class="input-group-append">
 							<button class="btn btn-primary" type="button" 
 									id="searchBtn" data-card-widget="search" onclick="list_go(-1);">
@@ -129,27 +108,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                	<th>전화번호</th>
 		                	<th>등록날짜</th> <!-- yyyy-MM-dd  -->
 		               	</tr>
-		               	
-		               	
-		               			
-		               	
-		               	<c:if test="${memberList ne null }">
-		               		<c:forEach items="${memberList }" var="member">
-		               			<tr onclick="" style="cursor:pointer;">
+		     			<c:if test="${!empty memberList }" >
+		            		<c:forEach items="${memberList }" var="member">
+		     						
+		     				
+		     					 <tr  onclick="" style="cursor:pointer;">
 		            		  	   	<td>사진</td>
 		            		  	   	<td>${member.id }</td>
 				              		<td>${member.pwd }</td>
 				              		<td>${member.name }
 				              		<td>${member.email }</td>
 		            		  	   	<td>${member.phone.replace('-','')  }</td>
-		            		  	   	<td>${member.regdate }</td>
-		            		  	</tr>
-		               		</c:forEach>
-		               	</c:if>
-		               	
-		              
-		     			
-		     			
+		            		  	   	<td>
+		            		  	   		<fmt:parseDate value="${member.regdate }" var='date' pattern="yyyy-MM-dd"/>
+		            		  	   		<fmt:formatDate value="${date }" pattern="yyyy-MM-dd"/>
+		            		  	   	</td>
+		            		  	  </tr>	
+		     					
+		     				</c:forEach>
+		            	</c:if>		
+		     			<c:if test="${empty memberList }" >
+			     			<tr>
+		            			<td colspan="7" class="text-center">
+		            				해당내용이 없습니다.
+		            			</td>
+		            		</tr>
+		     			</c:if>	
 		            </table>
     		     </div> <!-- col-sm-12 -->
     	       </div> <!-- row -->
@@ -167,23 +151,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<i class="fas fa-angle-left"></i>
 							</a>						
 						</li>
-					
-						<c:set var="startPage" value="${pageMaker.getStartPage() }"/>
-						<c:set var="endPage" value="${pageMaker.getEndPage() }"/>
-						<c:set var="pageNum" value="${pageMaker.getCri().getPage() }"/>
 						
-											
-						<c:forEach begin="${startPage }" end="${endPage }" varStatus="idx">
-							<c:if test="${pageNum eq idx.count}">
-								<c:set var="active" value="active"/>
-							</c:if>
+						<c:forEach var="pageNum" begin="${pageMaker.startPage }" 
+												 end="${pageMaker.endPage }" >
+							<li class="page-item ${cri.page == pageNum?'active':''}">
+								<a class="page-link" href="javascript:list_go('${pageNum}');" >${pageNum }</a>
+							</li>
 							
-								<li class="page-item  ${active }">
-									<a class="page-link" href="javascript:list_go(${idx.count });">${idx.count }</a>
-								</li>	
-							<c:remove var="active"/>
 						</c:forEach>
-						
 						
 						
 						<li class="page-item">
@@ -215,14 +190,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <script>
 	function list_go(page,url){
+		//alert(page);
 		if(!url) url="list";
-		
 		
 		var jobForm=$('#jobForm');
 		jobForm.find("[name='page']").val(page);
 		jobForm.find("[name='perPageNum']").val($('select[name="perPageNum"]').val());
-		jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
-		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+		jobForm.find("[name='searchType']")
+			.val($('select[name="searchType"]').val());
+		jobForm.find("[name='keyword']")
+			.val($('div.input-group>input[name="keyword"]').val());
 		
 		jobForm.attr({
 			action:url,
@@ -256,11 +233,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-
-<script src="<c:url value="/resources/bootstrap/plugins/jquery/jquery.min.js" />"></script>
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="<c:url value="/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js" />"></script>
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<c:url value="/resources/bootstrap/dist/js/adminlte.min.js" />"></script>
+<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+
+
+<!-- common -->
+<script src="<%=request.getContextPath() %>/resources/js/common.js"></script>
+
 </body>
 </html>
