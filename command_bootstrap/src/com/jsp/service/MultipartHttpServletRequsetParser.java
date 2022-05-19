@@ -2,6 +2,8 @@ package com.jsp.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,10 +85,42 @@ public class MultipartHttpServletRequsetParser {
 	}
 	
 	public FileItem getFileItem(String paramName) {
-		return null;
+		List<FileItem> itemList = paramFile.get(paramName);
+		FileItem result = null;
+		
+		if(itemList != null) result = itemList.get(0);
+		
+		return result;
 	}
 	
 	public FileItem[] getFileItems(String paramName) {
-		return null;
+		List<FileItem> items = paramFile.get(paramName);
+		FileItem[] files = null;
+		
+		if(items != null) {
+			files = new FileItem[items.size()];
+			items.toArray(files);
+		}
+		return files;
+	}
+	
+	public Enumeration<String> getParameterNames() {
+		List<String> paramNames = new ArrayList<String>();
+		
+		if(paramString.size() > 0) {
+			for(String paramName : paramString.keySet()) {
+				paramNames.add(paramName);
+			}
+		}
+		
+		if(paramFile.size() > 0) {
+			for(String paramName : paramFile.keySet()) {
+				paramNames.add(paramName);
+			}
+		}
+		
+		Enumeration<String> result = Collections.enumeration(paramNames);
+		
+		return result;
 	}
 }

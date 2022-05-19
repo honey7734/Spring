@@ -233,6 +233,7 @@ function upload_go(){
 	$.ajax({
 		url : "picture",
 		data : formData,
+		type : "post",
 		processData : false,
 		contentType : false,
 		success : function(data){
