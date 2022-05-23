@@ -1,5 +1,7 @@
 package com.jsp.dto;
 
+import java.util.Date;
+
 public class MemberVO {
 	private String id;
 	private String pwd;
@@ -7,7 +9,7 @@ public class MemberVO {
 	private String phone;
 	private String email;
 	private String picture;	// 사진파일 경로/파일명
-	private String regdate;	// 등록일
+	private Date regdate;	// 등록일
 	private String authority;	// 권한
 	private int enabled;	// 사용여부
 	private String register;// 등록자
@@ -57,10 +59,10 @@ public class MemberVO {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	public String getRegdate() {
+	public Date getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(String regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 	public String getAuthority() {
