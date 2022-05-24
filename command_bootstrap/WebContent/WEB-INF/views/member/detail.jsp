@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		          <div class="card-footer" style="padding:5px 0;" >
 		          		<div class="row">
 			          		<div class="col-sm-3 text-center">
-			          			<button type="button" onclick="" id="modifyBtn" class="btn btn-warning ">수 정</button>
+			          			<button type="button" onclick="location.href='modifyForm.do?id=${member.id}'" id="modifyBtn" class="btn btn-warning ">수 정</button>
 			          		</div>
 		          		
 			          		<div class="col-sm-3 text-center">
@@ -122,6 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 window.onload = function(){
 	MemberPictureThumb('<%=request.getContextPath()%>');	
 }
+
 </script>
 <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>

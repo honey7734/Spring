@@ -27,11 +27,19 @@ import com.jsp.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
 	
-	private SqlSessionFactory sqlSessionFactory = new OracleMybatisSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory;
 	
-	private MemberDAO memberDAO = new MemberDAOImpl();
+	private MemberDAO memberDAO;
 	
 	
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+
 	//1. 모든 멤버 객체를 리스트로 받아와 반환해주는 메서드 구현
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
