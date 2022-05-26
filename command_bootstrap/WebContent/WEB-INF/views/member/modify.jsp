@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
- <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
-
-<title>회원수정</title>
-<body>
+<%@ include file="/WEB-INF/include/header.jsp" %>
 
   <!-- Content Wrapper. Contains page content -->
   <div>
@@ -40,7 +32,7 @@
 		<div class="card" style="min-width:450px;">	
 			<div class="card-body">	
 				<div class="row">					
-					<input type="hidden" name="oldPicture"  value=""/>
+					<input type="hidden" name="oldPicture"  value="${member.picture }"/>
 					<input type="file" id="inputFile" onchange="changePicture_go();" name="picture" style="display:none" />
 					<div class="input-group col-md-12">
 						<div class="col-md-12" style="text-align: center;">
@@ -122,22 +114,12 @@
 
   
   <script type="text/javascript">
-  function modify_go(){
-	  
-	  //수정된  사진 업로드
-	  var form = $('form[role="form"]');
-		form.attr({
-			"method" : "post",
-			"action" : "modify.do"
-		})
-		form.submit();
-  }
+
   
   function changePicture_go(){
 	//alert("file change");
 		
-	var form = $('form[role="form"]');
-	var picture = form.find('[name=picture]')[0];
+	var picture = $('input#inputFile')[0];
   		
 	//이미지 확장자 jpg 확인
 	var fileFormat = picture.value.substr(picture.value.lastIndexOf(".")+1).toUpperCase();
@@ -153,12 +135,9 @@
 		picture.value="";
 		return;
 	};
-  	   
-  	   
-	//업로드 할 사진 변경
-	form.find('[name="uploadPicture"]').val(1);
 	
 	document.getElementById('inputFileName').value = picture.files[0].name;
+	
 	
 	if(picture.files && picture.files[0]){
 		   var reader = new FileReader();
@@ -176,9 +155,18 @@
 		   
 		   reader.readAsDataURL(picture.files[0]);
 	   }
+		
+		// 이미지 변경 확인
+		$('input[name="uploadPicture"]').val(picture.files[0].name);
 	
-}
+	}
   
+  function modify_go(){
+	  
+	  //수정된  사진 업로드
+	  var form = $('form[role="form"]');
+	  form.submit();
+  }
   
   </script>  
   
@@ -187,13 +175,6 @@
 window.onload = function(){
 	MemberPictureThumb('<%=request.getContextPath()%>');	
 }
-
 </script>
-<!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
-<!-- common -->
-<script src="<%=request.getContextPath() %>/resources/js/common.js" ></script>
+
+<%@ include file="/WEB-INF/include/footer.jsp" %>
