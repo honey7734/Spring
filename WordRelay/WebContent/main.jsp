@@ -26,6 +26,10 @@ h1, th, td{
 td, span{
  font-size: 1.2em
 }
+.fa-bookmark{
+  text-align:left;
+  width: 110px;
+}
 </style>
 </head>
 
@@ -39,7 +43,7 @@ td, span{
 	<div class="card">
 		<div class="card-header border-0">
 			<div class="card-tools">
-				<button type="button" class="btn btn-primary">방 생성하기</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoom">방 생성하기</button>
 			</div>
 		</div>
 		<div class="card-body table-responsive p-0">
@@ -122,6 +126,52 @@ td, span{
 		</div>
 	</div>
 </div>
+
+
+<!-- The Modal -->
+  <div class="modal fade" id="createRoom">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">새로운 방 생성하기</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+          <div class="card-body login-card-body">
+			<form action="#" method="post">
+				<div class="input-group mb-3">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-bookmark">&nbsp;방제목</span>
+						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="방 제목을  입력해주세요">
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-bookmark">&nbsp;비밀번호</span>
+						</div>
+					</div>
+					<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요">
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary btn-block">생성하기</button>
+					</div>
+				</div>
+			  </form>
+			</div>
+        </div>
+     
+      </div>
+    </div>
+  </div>
 
 
 

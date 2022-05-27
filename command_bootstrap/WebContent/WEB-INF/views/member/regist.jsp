@@ -3,7 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 
 
-<%@ include file="/WEB-INF/include/header.jsp" %>
+<%-- <%@ include file="/WEB-INF/include/header.jsp" %> --%>
 
 	<!-- Content Wrapper. Contains page content -->
 	
@@ -306,4 +306,4 @@ function regist_go(){
 }
 </script>
 
-<%@ include file="/WEB-INF/include/footer.jsp" %>
+<%-- <%@ include file="/WEB-INF/include/footer.jsp" %> --%>

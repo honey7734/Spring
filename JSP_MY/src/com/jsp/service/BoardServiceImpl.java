@@ -33,6 +33,8 @@ public class BoardServiceImpl implements BoardService{
 			session.rollback();
 			e.printStackTrace();
 			throw e;
+		}finally {
+			if(session!=null) session.close();
 		}
 		
 		return boardList;
@@ -51,6 +53,8 @@ public class BoardServiceImpl implements BoardService{
 			session.rollback();
 			e.printStackTrace();
 			throw e;
+		}finally {
+			if(session!=null) session.close();
 		}
 		
 		return boardList;
@@ -77,6 +81,8 @@ public class BoardServiceImpl implements BoardService{
 			session.rollback();
 			e.printStackTrace();
 			throw e;
+		}finally {
+			if(session!=null) session.close();
 		}
 		
 		return dataMap;

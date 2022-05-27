@@ -11,7 +11,6 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="memberList" value="${dataMap.memberList }" />
 
-<%@ include file="/WEB-INF/include/header.jsp" %>
 
 <div class="wrapper">
   <div >
@@ -200,4 +199,3 @@ window.onload = function(){
 </script>
   
   
-<%@ include file="/WEB-INF/include/footer.jsp" %>
