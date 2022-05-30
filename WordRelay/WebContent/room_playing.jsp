@@ -78,7 +78,7 @@ p{
 		  <div id="ctr" class="mb-4">
 			  	<p><span class="text-primary" style="font-size: 1.5em;">User</span>님 단어를 입력해주세요</p>
 		  </div>
-		  <input type="text" class="form-control" id="usr" placeholder="차" value="" readonly>
+		  <input type="text" class="form-control" id="input" placeholder="차" value="">
 		</div>
 		<div class="progress">
 			<div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
@@ -126,6 +126,7 @@ p{
 </div>
 
 
+
 <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -133,6 +134,10 @@ p{
 <!-- AdminLTE App -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
 <!-- common -->
-<script src="<%=request.getContextPath() %>/resources/js/common.js" ></script>
+<script type="text/javascript">
+window.onload = function(){
+	$('#input').focus();
+}
+</script>
 </body>
 </html>
