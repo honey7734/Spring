@@ -1,7 +1,7 @@
 <%@page import="com.jsp.command.PageMaker"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
-<%@page import="com.jsp.dto.NoticeVO"%>
+<%@page import="com.jsp.dto.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,11 +9,11 @@
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }"/>
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
-<c:set var="noticeList" value="${dataMap.noticeList }" />
+<c:set var="boardList" value="${dataMap.boardList }" />
 
 <head></head>
 
-<title>공지목록</title>
+<title>게시판목록</title>
 
 <body>
 	 <!-- Main content -->
@@ -21,13 +21,13 @@
 	  	<div class="container-fluid">
 	  		<div class="row md-2">
 	  			<div class="col-sm-6">
-	  				<h1>공지목록</h1>  				
+	  				<h1>게시판목록</h1>  				
 	  			</div>
 	  			<div class="col-sm-6">
 	  				<ol class="breadcrumb float-sm-right">
 			        <li class="breadcrumb-item">
 			        	<a href="list.do">
-				        	<i class="fa fa-dashboard"></i>공지사항
+				        	<i class="fa fa-dashboard"></i>자유게시판
 				        </a>
 			        </li>
 			        <li class="breadcrumb-item active">
@@ -43,7 +43,7 @@
     <section class="content">		
 		<div class="card">
 			<div class="card-header with-border">
-				<button type="button" class="btn btn-primary" id="registBtn" onclick="OpenWindow('registForm.do','공지등록',800,700);">공지등록</button>				
+				<button type="button" class="btn btn-primary" id="registBtn" onclick="OpenWindow('registForm.do','게시판등록',800,700);">게시판등록</button>				
 				<div id="keyword" class="card-tools" style="width:540px;">
 					<div class="input-group row">
 						<select class="form-control col-md-3" name="perPageNum" id="perPageNum"
@@ -82,23 +82,23 @@
 						<th>등록일</th>
 						<th style="width:10%;">조회수</th>
 					</tr>				
-					<c:if test="${!empty noticeList }">		
-					  <c:forEach items="${noticeList }" var="notice">
-						<tr style='font-size:0.85em;cursor:pointer;' onclick="OpenWindow('detail.do?from=list&nno=${notice.nno}','공지상세',700,800);">
-							<td>${notice.nno }</td>
+					<c:if test="${!empty boardList }">		
+					  <c:forEach items="${boardList }" var="board">
+						<tr style='font-size:0.85em;cursor:pointer;' onclick="OpenWindow('detail.do?from=list&bno=${board.bno}','게시판상세',700,800);">
+							<td>${board.bno }</td>
 							<td id="boardTitle" style="text-align:left;max-width: 100px; overflow: hidden; 
 												white-space: nowrap; text-overflow: ellipsis;">
-								${notice.title }
+								${board.title }
 							</td>			
-							<td data-target="notice-writer"><td>							
-								${notice.writer }
+							<td data-target="board-writer"><td>							
+								${board.writer }
 							</td>
-							<td><span class="badge bg-red">${notice.viewcnt }</span></td>		
+							<td><span class="badge bg-red">${board.viewcnt }</span></td>		
 						</tr>
 					  </c:forEach>
 					</c:if>
 
-					<c:if test="${empty noticeList }">		
+					<c:if test="${empty boardList }">		
 						<tr>
 	            			<td colspan="5" class="text-center">
 	            				해당내용이 없습니다.
