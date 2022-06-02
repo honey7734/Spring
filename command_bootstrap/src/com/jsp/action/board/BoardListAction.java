@@ -19,25 +19,25 @@ public class BoardListAction implements Action {
 	}
 	
 	@Override
-	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String process(HttpServletRequest request, HttpServletResponse response) 
+				throws Exception {
 		String url = "/board/list";
 		
-		SearchCriteria cri = null;
-		System.out.println("보드 페이지 번호  : " + request.getParameter("page"));
 		try {
 			SearchCriteriaCommand command 
 			= HttpRequestParameterAdpter.execute(request, SearchCriteriaCommand.class);
 			
-			cri = command.toSearchCriteria();
+			SearchCriteria cri = command.toSearchCriteria();
 			
 			Map<String, Object> dataMap = boardService.getBoardList(cri);
 			request.setAttribute("dataMap", dataMap);
 			
-			return url;
 		} catch (Exception e) {
 			e.printStackTrace();
+//			url = "/error/500.jsp";
 			throw e;
 		}
+		return url;
 	}
 
 }

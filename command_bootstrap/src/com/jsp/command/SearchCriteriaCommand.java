@@ -1,6 +1,7 @@
 package com.jsp.command;
 
 public class SearchCriteriaCommand {
+	
 	private String page;
 	private String perPageNum;
 	private String keyword;

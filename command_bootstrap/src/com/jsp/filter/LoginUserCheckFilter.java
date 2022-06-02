@@ -53,17 +53,13 @@ public class LoginUserCheckFilter implements Filter {
 			String contextPath = httpReq.getContextPath(); 
 			String retUrl = httpReq.getRequestURI().replace(contextPath, "");
 			
-			String mCode = httpReq.getParameter("mCode");
-
-//			System.out.println("mCode : " + httpReq.getParameter("mCode"));
-//			System.out.println("url : " + httpReq.getRequestURL());
-//			System.out.println("uri : " + httpReq.getRequestURI());
-
-			if(mCode != null) {
-				retUrl += "?mCode=" + mCode;
+			String queryString = httpReq.getQueryString();
+			if(queryString != null) {
+				retUrl += "?" + queryString;
 			}
 			
 			httpReq.setAttribute("viewName", "redirect:/common/loginForm.do?retUrl="+retUrl);
+			
 			InternalViewResolver.view(httpReq, httpResp);
 		}else {
 			chain.doFilter(request, response);

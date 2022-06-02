@@ -16,10 +16,15 @@ public class BoardRemoveAction implements Action {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "/board/remove_success";
-		
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		boardService.remove(bno);
+		try {
+			int bno = Integer.parseInt(request.getParameter("bno"));
+			
+			boardService.remove(bno);
+		} catch (Exception e) {
+			url = null;
+			e.printStackTrace();
+			throw e;
+		}
 		
 		return url;
 	}

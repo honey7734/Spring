@@ -19,20 +19,26 @@ public class BoardDetailAction implements Action {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "/board/detail";
-		
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		String from = request.getParameter("from");
-		
-		BoardVO board = null;
-		if(from != null && from.equals("list")) {
-			board = boardService.getBoard(bno);
-			url="redirect:/board/detail.do?bno="+bno;
-		}else {
-			board = boardService.getBoardForModify(bno);
+		try {
+			
+			int bno = Integer.parseInt(request.getParameter("bno"));
+			
+			String from = request.getParameter("from");
+			
+			BoardVO board = null;
+			if(from != null && from.equals("list")) {
+				board = boardService.getBoard(bno);
+				url="redirect:/board/detail.do?bno="+bno;
+			}else {
+				board = boardService.getBoardForModify(bno);
+			}
+			
+			request.setAttribute("board", board);
+		} catch (Exception e) {
+			e.printStackTrace();
+			url = null;
+			throw e;
 		}
-		
-		request.setAttribute("board", board);
 		
 		return url;
 	}

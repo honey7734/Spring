@@ -10,7 +10,8 @@ public class BoardVO {
 	private Date regdate;
 	private int viewcnt;
 	private Date updatedate;
-	private String dist;
+	
+	private int replycnt; // 댓글 개수
 	
 	public int getBno() {
 		return bno;
@@ -54,12 +55,13 @@ public class BoardVO {
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
 	}
-	public String getDist() {
-		return dist;
+	public int getReplycnt() {
+		return replycnt;
 	}
-	public void setDist(String dist) {
-		this.dist = dist;
+	public void setReplycnt(int replycnt) {
+		this.replycnt = replycnt;
 	}
+	
 	
 	
 }

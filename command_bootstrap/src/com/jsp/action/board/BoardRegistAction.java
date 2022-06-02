@@ -20,12 +20,18 @@ public class BoardRegistAction implements Action {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "/board/regist_success";
 		
-		BoardVO board = XSSHttpRequestParameterAdapter.execute(request, BoardVO.class,true);
-		
-		//smartEditor parameter 제외
-		board.setContent(request.getParameter("content"));
-		
-		boardService.regist(board);
+		try {
+			
+			BoardVO board = XSSHttpRequestParameterAdapter.execute(request, BoardVO.class,true);
+			
+			//smartEditor parameter 제외
+			board.setContent(request.getParameter("content"));
+			
+			boardService.regist(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 		return url;
 		
