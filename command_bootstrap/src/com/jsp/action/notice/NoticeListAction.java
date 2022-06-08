@@ -23,7 +23,6 @@ public class NoticeListAction implements Action {
 		String url = "/notice/list";
 		
 		SearchCriteria cri = null;
-		System.out.println("공지 페이지 번호  : " + request.getParameter("page"));
 		
 		//입력
 		try {
