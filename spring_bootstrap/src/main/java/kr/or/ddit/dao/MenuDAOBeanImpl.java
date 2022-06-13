@@ -13,6 +13,15 @@ public class MenuDAOBeanImpl implements MenuDAOBean {
 	private SqlSession session;
 	private MenuDAO menuDAO;
 	
+	public void setSession(SqlSession session) {
+		this.session = session;
+	}
+
+	public void setMenuDAO(MenuDAO menuDAO) {
+		this.menuDAO = menuDAO;
+	}
+	
+	
 	@Override
 	public List<MenuVO> selectMainMenu() throws SQLException {
 		return menuDAO.selectMainMenu(session);
@@ -32,5 +41,4 @@ public class MenuDAOBeanImpl implements MenuDAOBean {
 	public MenuVO selectMenuByMname(String mName) throws SQLException {
 		return menuDAO.selectMenuByMname(session, mName);
 	}
-
 }

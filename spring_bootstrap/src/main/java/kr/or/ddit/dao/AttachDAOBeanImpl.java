@@ -9,9 +9,10 @@ import com.jsp.dao.AttachDAO;
 import com.jsp.dto.AttachVO;
 
 public class AttachDAOBeanImpl implements AttachDAOBean {
-
+	
 	private SqlSession session;
-	private AttachDAO attachDAO;	
+	private AttachDAO attachDAO; 
+	
 	
 	public void setSession(SqlSession session) {
 		this.session = session;

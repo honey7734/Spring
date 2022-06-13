@@ -13,7 +13,7 @@ public class ReplyDAOBeanImpl implements ReplyDAOBean {
 
 	private SqlSession session;
 	private ReplyDAO replyDAO;
-	
+		
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
@@ -52,4 +52,5 @@ public class ReplyDAOBeanImpl implements ReplyDAOBean {
 		return replyDAO.countReply(session, bno);
 	}
 
+	
 }

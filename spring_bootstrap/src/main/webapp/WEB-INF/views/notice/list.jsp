@@ -11,6 +11,7 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="noticeList" value="${dataMap.noticeList }" />
 
+
 <head></head>
 
 <title>공지목록</title>
@@ -114,4 +115,14 @@
 		</div>
 		
     </section>
+
+<c:if test="${from eq 'regist'}">
+<script>
+	alert("공지사항 등록이 성공했습니다");
+	window.opener.location.reload();
+	window.close();
+</script>
+</c:if>
+
+
 </body>

@@ -72,4 +72,5 @@ public class MemberDAOBeanImpl implements MemberDAOBean {
 	public void enabledMember(String id, int enabled) throws SQLException {
 		memberDAO.enabledMember(session, id, enabled);		
 	}
+
 }

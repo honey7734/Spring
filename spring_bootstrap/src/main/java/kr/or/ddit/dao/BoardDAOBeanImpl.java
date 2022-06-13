@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.jsp.command.Criteria;
+import com.jsp.command.SearchCriteria;
 import com.jsp.dao.BoardDAO;
 import com.jsp.dto.BoardVO;
 
 public class BoardDAOBeanImpl implements BoardDAOBean {
-
+	
 	private SqlSession session;
 	private BoardDAO boardDAO;
-	
+
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
@@ -23,12 +23,12 @@ public class BoardDAOBeanImpl implements BoardDAOBean {
 	}
 
 	@Override
-	public List<BoardVO> selectBoardCriteria(Criteria cri) throws SQLException {
+	public List<BoardVO> selectBoardCriteria(SearchCriteria cri) throws SQLException {
 		return boardDAO.selectBoardCriteria(session, cri);
 	}
 
 	@Override
-	public int selectBoardCriteriaTotalCount(Criteria cri) throws SQLException {
+	public int selectBoardCriteriaTotalCount(SearchCriteria cri) throws SQLException {
 		return boardDAO.selectBoardCriteriaTotalCount(session, cri);
 	}
 
@@ -60,6 +60,15 @@ public class BoardDAOBeanImpl implements BoardDAOBean {
 	@Override
 	public int selectBoardSeqNext() throws SQLException {
 		return boardDAO.selectBoardSeqNext(session);
+	}
+
+	@Override
+	public BoardVO selectBoardByImage(String imageFile) throws SQLException {
+		
+		BoardVO board 
+			= session.selectOne("Board-Mapper.selectBoardByImage",imageFile);
+		
+		return board;
 	}
 
 }

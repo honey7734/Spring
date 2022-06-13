@@ -78,7 +78,7 @@ p{
 		  <div id="ctr" class="mb-4">
 			  	<p><span class="text-primary" style="font-size: 1.5em;">User</span>님 단어를 입력해주세요</p>
 		  </div>
-		  <input type="text" class="form-control" id="input" placeholder="차" value="">
+		  <input type="text" class="form-control" id="word" value="" onKeypress="javascript:if(event.keyCode==13){insert_go(this)}">
 		</div>
 		<div class="progress">
 			<div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
@@ -135,8 +135,23 @@ p{
 <script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
 <!-- common -->
 <script type="text/javascript">
+
+//기준단어
+var keyword = "차";
+
 window.onload = function(){
-	$('#input').focus();
+	$('#word').attr("placeholder", keyword);
+	$('#word').focus();
+}
+
+function insert_go(input){
+	var word = input.value;
+	alert(input.value[0])
+	
+	// 첫 단어와 다를때
+	
+	
+	// 
 }
 </script>
 </body>

@@ -6,7 +6,7 @@ import java.util.List;
 import com.jsp.command.SearchCriteria;
 import com.jsp.dto.MemberVO;
 
-public interface MemberDAOBean {	
+public interface MemberDAOBean {
 
 	// 회원리스트 조회
 	List<MemberVO> selectMemberList() throws Exception;
@@ -35,4 +35,5 @@ public interface MemberDAOBean {
 
 	// 회원 활성화
 	void enabledMember(String id, int enabled) throws SQLException;
+
 }

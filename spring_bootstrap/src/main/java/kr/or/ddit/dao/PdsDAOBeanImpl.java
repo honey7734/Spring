@@ -5,14 +5,16 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.jsp.command.Criteria;
+import com.jsp.command.SearchCriteria;
 import com.jsp.dao.PdsDAO;
 import com.jsp.dto.PdsVO;
 
 public class PdsDAOBeanImpl implements PdsDAOBean {
+
 	private SqlSession session;
 	private PdsDAO pdsDAO;
 	
+		
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
@@ -22,12 +24,12 @@ public class PdsDAOBeanImpl implements PdsDAOBean {
 	}
 
 	@Override
-	public List<PdsVO> selectPdsCriteria(Criteria cri) throws SQLException {
+	public List<PdsVO> selectPdsCriteria(SearchCriteria cri) throws SQLException {
 		return pdsDAO.selectPdsCriteria(session, cri);
 	}
 
 	@Override
-	public int selectPdsCriteriaTotalCount(Criteria cri) throws SQLException {
+	public int selectPdsCriteriaTotalCount(SearchCriteria cri) throws SQLException {
 		return pdsDAO.selectPdsCriteriaTotalCount(session, cri);
 	}
 
@@ -59,6 +61,12 @@ public class PdsDAOBeanImpl implements PdsDAOBean {
 	@Override
 	public int getSeqNextValue() throws SQLException {
 		return pdsDAO.getSeqNextValue(session);
+	}
+
+	@Override
+	public PdsVO selectPdsByImage(String imageFile) throws SQLException {
+		PdsVO pds = session.selectOne("Pds-Mapper.selectPdsByImage",imageFile);
+		return pds;
 	}
 
 }
