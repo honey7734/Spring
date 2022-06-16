@@ -30,10 +30,12 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public Map<String, Object> getReplyList(int bno,Criteria cri) throws SQLException {
 
+		
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
 		List<ReplyVO> replyList = replyDAOBean.selectReplyListPage(bno, cri);
 
+		
 		if(replyList!=null)for(ReplyVO reply : replyList) {
 			MemberVO member = memberDAOBean.selectMemberById(reply.getReplyer());
 			reply.setPicture(member.getPicture());
@@ -47,7 +49,8 @@ public class ReplyServiceImpl implements ReplyService{
 
 		dataMap.put("replyList", replyList);
 		dataMap.put("pageMaker", pageMaker);
-
+		
+		
 		return dataMap;
 	}
 

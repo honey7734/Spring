@@ -91,9 +91,12 @@
 												white-space: nowrap; text-overflow: ellipsis;">
 								${notice.title }
 							</td>			
-							<td data-target="notice-writer"><td>							
-								${notice.writer }
+							<td data-target="notice-writer">
+								${notice.writer}
 							</td>
+							<td>                     
+                        		<fmt:formatDate value="${notice.regDate }" pattern="yyyy-MM-dd"/>
+                     		</td>
 							<td><span class="badge bg-red">${notice.viewcnt }</span></td>		
 						</tr>
 					  </c:forEach>

@@ -35,7 +35,7 @@ public class MemberController {
 	public void main() {}
 	
 	@RequestMapping("/list")
-	public ModelAndView list(SearchCriteria cri, HttpServletRequest request, ModelAndView mnv) throws SQLException{
+	public ModelAndView list(SearchCriteria cri, ModelAndView mnv) throws SQLException{
 		String url = "member/list";
 		
 		Map<String, Object> dataMap = null;

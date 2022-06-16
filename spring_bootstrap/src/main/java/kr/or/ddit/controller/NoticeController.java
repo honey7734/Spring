@@ -52,7 +52,7 @@ public class NoticeController {
 		
 		notice.setTitle((String)request.getAttribute("XSStitle"));
 		
-		notice.setWriter("mimi");
+		//notice.setWriter("mimi");
 		noticeService.regist(notice);
 		rttr.addFlashAttribute("from","regist");
 		

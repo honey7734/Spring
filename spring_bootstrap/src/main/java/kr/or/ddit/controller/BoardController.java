@@ -3,14 +3,12 @@ package kr.or.ddit.controller;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,93 +19,113 @@ import com.jsp.service.BoardService;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	@Autowired
-	private BoardService boardService;
+	
+
+	@Resource(name="boardService")
+	private BoardService service;
 	
 	@RequestMapping("/main")
-	public void main() {}
-
-	@RequestMapping("/list")
-	public String list(SearchCriteria cri, Model model) throws Exception{
-		String url = "board/list";
-		
-		Map<String, Object> dataMap = boardService.getBoardList(cri);
-		model.addAttribute("dataMap", dataMap);
-		
+	public String main()throws Exception{
+		String url="board/main";
 		return url;
 	}
 	
+	@RequestMapping("/list")
+	public ModelAndView list(SearchCriteria cri, ModelAndView mnv)throws SQLException{
+		String url="board/list";		
+		
+		Map<String,Object> dataMap = service.getBoardList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 	@RequestMapping("/registForm")
-	public String registForm() {
-		String url = "notice/regist";
+	public String registForm(){
+		String url="board/regist";		
 		return url;
 	}
 	
 	@RequestMapping("/regist")
-	public String regist(BoardVO board, HttpServletRequest request, RedirectAttributes rttr) throws Exception{
-		String url = "redirect:/board/list";
+	public String regist(BoardVO board,HttpServletRequest request, //BoardVO board,
+						 RedirectAttributes rttr)throws Exception{
+		String url="redirect:/board/list.do";	
 		
-		boardService.regist(board);
+		board.setTitle((String)request.getAttribute("XSStitle"));
 		
-		rttr.addFlashAttribute("from", "regist");
+		service.regist(board);
+		
+		rttr.addFlashAttribute("from","regist");
 		
 		return url;
 	}
-
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public ModelAndView detail(int bno, @RequestParam(defaultValue = "")String from, ModelAndView mnv) throws SQLException {
-		String url = "board/detail";
+	
+	@RequestMapping("/detail")
+	public ModelAndView detail(int bno,String from, ModelAndView mnv )throws SQLException{
+		String url="board/detail";		
 		
-		BoardVO board = null;
-		
-		if(!from.equals("list")) {
-			board = boardService.getBoardForModify(bno);
+		BoardVO board =null;
+		if(from!=null && from.equals("list")) {
+			board=service.getBoard(bno);
+			url="redirect:/board/detail.do?bno="+bno;
 		}else {
-			board = boardService.getBoard(bno);
-			url = "redirect:/board/detail.do?bno=" + bno;
+			board=service.getBoardForModify(bno);
 		}
-		
-		mnv.addObject("board", board);
+					
+		mnv.addObject("board",board);		
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 	
 	@RequestMapping("/modifyForm")
-	public ModelAndView modifyForm(int bno, ModelAndView mnv) throws Exception{
-		String url = "board/modify";
+	public ModelAndView modifyForm(int bno,ModelAndView mnv)throws SQLException{
+		String url="board/modify";
 		
-		BoardVO board = boardService.getBoardForModify(bno);
+		BoardVO board = service.getBoardForModify(bno);
 		
-		mnv.addObject("board", board);
+		mnv.addObject("board",board);		
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 	
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modify(BoardVO board, HttpServletRequest request, RedirectAttributes rttr) throws Exception{
-		String url ="redirect:/board/detail.do";
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
+	public String modifyPost(BoardVO board,HttpServletRequest request, //BoardModifyCommand modifyReq,
+							 RedirectAttributes rttr) throws Exception{
 		
+		String url = "redirect:/board/detail.do";
 		
 		board.setTitle((String)request.getAttribute("XSStitle"));
-
-		boardService.modify(board);
+				
+		service.modify(board);
 		
-		rttr.addAttribute("bno", board.getBno());
-		rttr.addFlashAttribute("from", "modify");
+		rttr.addFlashAttribute("from","modify");
+		rttr.addAttribute("bno",board.getBno());
 		
 		return url;
 	}
 	
-	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public String remove(int bno, RedirectAttributes rttr) throws Exception{
-		String url = "redirect:/board/detail.do";
+	@RequestMapping(value="/remove",method=RequestMethod.POST)
+	public String remove(int bno,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/board/detail";
+		service.remove(bno);		
 		
-		boardService.remove(bno);
-		rttr.addFlashAttribute("from", "remove");
-		rttr.addAttribute("bno", bno);
-		
-		return url;
+		rttr.addAttribute("bno",bno);
+		rttr.addFlashAttribute("from","remove");
+		return url;		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
