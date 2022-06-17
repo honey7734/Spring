@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.jsp.dto.MemberVO;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = "kr.or.controller.view")
 public class ExceptionControllerAdvisor {
 
 	@ExceptionHandler(SQLException.class)

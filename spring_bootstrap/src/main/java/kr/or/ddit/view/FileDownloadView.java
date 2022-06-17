@@ -13,7 +13,6 @@ import com.jsp.controller.FileDownloadResolver;
 public class FileDownloadView implements View {
 
 	private String contextType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
-	
 	private void setContentType(String contentType) {
 		this.contextType = contentType;
 	}
