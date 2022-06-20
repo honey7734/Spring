@@ -33,4 +33,15 @@
 				   cron="*/10 * * * * *"/>	
 	</scheduled-tasks>
 	
+	<beans:bean id="loginUserLogTask"
+		class="kr.or.ddit.scheduler.LoginUserLogTaskScheduler"
+		p:loginUserLogService-ref="loginUserLogService"
+		p:savePath-ref="loginUserLogSavePath"/>
+	<scheduler id="LoginUserLogScheduler"/>
+	<scheduled-tasks scheduler="LoginUserLogScheduler">
+		<scheduled ref="loginUserLogTask" 
+				   method="loginUserLogToDataBase"
+				   cron="*/10 * * * * *"/>
+	</scheduled-tasks>
+	
 </beans:beans>
