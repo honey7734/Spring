@@ -24,8 +24,9 @@
 	<bean id="loginUserLogSavePath" class="java.lang.String">
 		<constructor-arg value="${login.user.log}"/>
 	</bean>
-
-	
+	<bean id="errorLogPath" class="java.lang.String">
+		<constructor-arg value="${error.log}"/>
+	</bean>
 
 
 

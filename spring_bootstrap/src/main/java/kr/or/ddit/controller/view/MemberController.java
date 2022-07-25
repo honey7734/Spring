@@ -23,6 +23,7 @@ import com.jsp.dto.MemberVO;
 import com.jsp.service.LoginSearchMemberService;
 
 import kr.or.ddit.command.MemberModifyCommand;
+import kr.or.ddit.controller.advisor.ExceptionLoggerHelper;
 import kr.or.ddit.controller.rest.MemberRestController;
 
 @Controller
@@ -32,17 +33,26 @@ public class MemberController {
 	@Autowired
 	private LoginSearchMemberService memberService;
 	
+	@Autowired
+	private ExceptionLoggerHelper exceptionLogger;
+	
+	
 	@RequestMapping("/main")
 	public void main() {}
 	
 	@RequestMapping("/list")
-	public ModelAndView list(SearchCriteria cri, ModelAndView mnv) throws SQLException{
+	public ModelAndView list(SearchCriteria cri, HttpServletRequest request, ModelAndView mnv) throws SQLException{
 		String url = "member/list";
 		
 		Map<String, Object> dataMap = null;
 		try {
 			dataMap = memberService.getMemberListForPage(cri);
+			
+			//if(true) throw new SQLException();
+			
 		} catch (SQLException e) {
+			exceptionLogger.write(request, e, "MemberService");
+			e.printStackTrace();
 			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
